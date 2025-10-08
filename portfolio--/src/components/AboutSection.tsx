@@ -121,13 +121,13 @@ export default function AboutSection() {
         facts: [
             'Graduated with a BSc in Computing Science from the University of Alberta (November 2024)',
             'Contributed to the Blueprint project for Alzheimer Society Calgary, focusing on front-end development using React and Firebase',
-            'Joined BrainStation’s Software Engineering diploma track to deepen full-stack and DevOps expertise',
+            'Joined BrainStation’s Software Engineering diploma track to deepen full-stack expertise',
             'Focused on building scalable applications and mentoring peers in project-based learning environments'
         ]
     },
     {
         year: '2025',
-        title: 'Full-Stack Developer at SkillSoniq',
+        title: 'Full-Stack Developer',
         description: 'Building intelligent systems and powering the future of tech hiring',
         icon: <Briefcase className="w-6 h-6" />,
         color: 'bg-indigo-500',
@@ -136,7 +136,7 @@ export default function AboutSection() {
           'Develop and maintain core platform features in Ruby on Rails, focusing on candidate, project, and employer workflows',
           'Implement and refine NLP-driven algorithms to enhance candidate–job matching accuracy',
           'Leverage AWS services for deployment, storage, and scalability across production environments',
-          'Enhance system reliability by debugging and optimizing models, enums, and data workflows',
+          'Take on freelance projects for small businesses, delivering modern, responsive web applications'
         ]
     } 
   ];
