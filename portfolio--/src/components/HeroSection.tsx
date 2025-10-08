@@ -14,18 +14,18 @@ export default function HeroSection() {
     useEffect(() => {
         // Animated greeting
         const letters = gsap.utils.toArray('.hero-letter');
-        gsap.fromTo(letters, 
-          { y: 100, opacity: 0, rotation: 15 },
-          { 
-            y: 0, 
-            opacity: 1, 
-            rotation: 0,
+        gsap.fromTo(
+          letters,
+          { scale: 0, opacity: 0 },
+          {
+            scale: 1,
+            opacity: 1,
             duration: 0.8,
-            ease: 'back.out(1.7)',
-            stagger: 0.1,
-            delay: 0.5
+            ease: "elastic.out(1, 0.5)",
+            stagger: 0.05,
           }
         );
+        
     
         // Bouncing animation for letters
         gsap.to(letters, {
@@ -81,7 +81,8 @@ export default function HeroSection() {
         return () => window.removeEventListener('mousemove', handleMouseMove);
       }, []);
     
-      const greeting = "Hi, I'm Shanemel Asuncion, a Full-Stack Developer";
+      const greeting = "Hi! I am ";
+      const name = "Shanemel Asuncion";
     
       return (
         <section ref={heroRef} className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-purple-100 via-pink-100 to-blue-100">
@@ -114,17 +115,21 @@ export default function HeroSection() {
           {/* Main content */}
           <div className="text-center z-10 max-w-4xl mx-auto px-6">
             {/* Animated greeting */}
-            <h1 className="text-6xl md:text-8xl mb-8 leading-tight">
-              {greeting.split('').map((char, index) => (
-                <span 
+            <h1 className="text-6xl md:text-7xl mb-4 leading-tight">
+              {greeting}
+              {name.split('').map((char, index) => (
+                <span
                   key={index}
-                  className={`hero-letter inline-block ${char === ' ' ? 'w-4' : ''} bg-gradient-to-r from-purple-600 via-pink-500 to-blue-600 bg-clip-text text-transparent`}
+                  className={`hero-letter inline-block ${
+                    char === ' ' ? 'w-3' : ''
+                  } bg-gradient-to-r from-purple-600 via-pink-500 to-blue-600 bg-clip-text text-transparent`}
                 >
                   {char === ' ' ? '\u00A0' : char}
                 </span>
               ))}
             </h1>
-    
+
+
             {/* Interactive avatar */}
             <div 
               ref={avatarRef}
