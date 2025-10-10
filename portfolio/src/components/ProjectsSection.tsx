@@ -4,12 +4,28 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Badge } from '../assets/badge';
 import { Button } from '../assets/button';
 import { ExternalLink, Github, Star, Users } from 'lucide-react';
+import ProjectDialog from './ProjectDialog';
 
 gsap.registerPlugin(ScrollTrigger);
+
+interface Project {
+  id: number;
+  title: string;
+  tagline: string;
+  description: string;
+  image: string;
+  tech: string[];
+  color: string;
+  metrics: Record<string, string>;
+  featured?: boolean;
+  liveUrl?: string;
+  githubUrl?: string;
+}
 
 export default function ProjectsSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [hoveredProject, setHoveredProject] = useState<number | null>(null);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   useEffect(() => {
     // Entrance animation
@@ -41,37 +57,98 @@ export default function ProjectsSection() {
     });
   }, []);
 
-  const projects = [ 
-    { id: 1, title: 'Project 1', 
-        tagline: 'Tagline 1', 
-        description: 'Description 1', 
-        image: 'https://images.unsplash.com/photo-1566915896913-549d796d2166?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkZXZlbG9wZXIlMjB3b3Jrc3BhY2UlMjBjb2RlfGVufDF8fHx8MTc1OTg3ODAwNXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral', 
-        tech: ['React', 'Node.js', 'PostgreSQL', 'GraphQL', 'Docker'], color: 'from-green-400 to-emerald-600', metrics: { users: '10K+', uptime: '99.9%', rating: '4.8' }, featured: true }, 
-    { id: 2, title: 'Project 2', 
-        tagline: 'Tagline 2', 
-        description: 'Description 2', 
-        image: 'https://images.unsplash.com/photo-1566915896913-549d796d2166?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkZXZlbG9wZXIlMjB3b3Jrc3BhY2UlMjBjb2RlfGVufDF8fHx8MTc1OTg3ODAwNXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral', 
-        tech: ['Angular', 'Python', 'MongoDB', 'WebSocket', 'Redis'], color: 'from-blue-400 to-indigo-600', metrics: { users: '5K+', accuracy: '95%', rating: '4.9' }, featured: true }, 
-    { id: 3, title: 'Project 3', 
-        tagline: 'Tagline 3', 
-        description: 'Description 3', 
-        image: 'https://images.unsplash.com/photo-1566915896913-549d796d2166?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkZXZlbG9wZXIlMjB3b3Jrc3BhY2UlMjBjb2RlfGVufDF8fHx8MTc1OTg3ODAwNXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral', 
-        tech: ['Vue.js', 'Express.js', 'MySQL', 'JWT', 'AWS'], color: 'from-purple-400 to-violet-600', metrics: { teams: '500+', projects: '2K+', rating: '4.7' }, featured: false }, 
-    { id: 4, title: 'Project 4', 
-        tagline: 'Tagline 4', 
-        description: 'Description 4', 
-        image: 'https://images.unsplash.com/photo-1566915896913-549d796d2166?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkZXZlbG9wZXIlMjB3b3Jrc3BhY2UlMjBjb2RlfGVufDF8fHx8MTc1OTg3ODAwNXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral', 
-        tech: ['React Native', 'Firebase', 'Node.js', 'Stripe'], color: 'from-pink-400 to-rose-600', metrics: { users: '15K+', workouts: '100K+', rating: '4.6' }, featured: false }, 
-    { id: 5, title: 'Project 5', 
-        tagline: 'Tagline 5', 
-        description: 'Description 5', 
-        image: 'https://images.unsplash.com/photo-1566915896913-549d796d2166?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkZXZlbG9wZXIlMjB3b3Jrc3BhY2UlMjBjb2RlfGVufDF8fHx8MTc1OTg3ODAwNXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral', 
-        tech: ['Next.js', 'TypeScript', 'PostgreSQL', 'WebSocket'], color: 'from-yellow-400 to-orange-600', metrics: { tracked: '$5M+', signals: '1K+', rating: '4.8' }, featured: false }, 
-    { id: 6, title: 'Project 6', 
-        tagline: 'Tagline 6', 
-        description: 'Description 6', 
-        image: 'https://images.unsplash.com/photo-1566915896913-549d796d2166?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkZXZlbG9wZXIlMjB3b3Jrc3BhY2UlMjBjb2RlfGVufDF8fHx8MTc1OTg3ODAwNXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral', 
-        tech: ['React', 'Django', 'PostgreSQL', 'Redis', 'ML APIs'], color: 'from-teal-400 to-cyan-600', metrics: { students: '50K+', courses: '200+', rating: '4.9' }, featured: false } ];
+  const projects: Project[] = [
+    {
+      id: 1,
+      title: 'Project 1',
+      tagline: 'Innovating the Future',
+      description:
+        'Project 1 is a cutting-edge web application that streamlines workflow for developers and teams.',
+      image:
+        'https://images.unsplash.com/photo-1581091215369-5e7ed2e2f2aa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080',
+      tech: ['React', 'Node.js', 'PostgreSQL', 'GraphQL', 'Docker'],
+      color: 'from-green-400 to-emerald-600',
+      metrics: { users: '10K+', uptime: '99.9%', rating: '4.8' },
+      featured: true,
+      liveUrl: 'https://project1.example.com',
+      githubUrl: 'https://github.com/username/project1',
+    },
+    {
+      id: 2,
+      title: 'Project 2',
+      tagline: 'Connecting the World',
+      description:
+        'Project 2 is a real-time messaging platform for global teams to collaborate seamlessly.',
+      image:
+        'https://images.unsplash.com/photo-1581091215369-5e7ed2e2f2aa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080',
+      tech: ['Angular', 'Python', 'MongoDB', 'WebSocket', 'Redis'],
+      color: 'from-blue-400 to-indigo-600',
+      metrics: { users: '5K+', accuracy: '95%', rating: '4.9' },
+      featured: true,
+      liveUrl: 'https://project2.example.com',
+      githubUrl: 'https://github.com/username/project2',
+    },
+    {
+      id: 3,
+      title: 'Project 3',
+      tagline: 'Simplifying Complexity',
+      description:
+        'Project 3 is an analytics dashboard that visualizes complex data in simple charts.',
+      image:
+        'https://images.unsplash.com/photo-1581091215369-5e7ed2e2f2aa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080',
+      tech: ['Vue.js', 'Express.js', 'MySQL', 'JWT', 'AWS'],
+      color: 'from-purple-400 to-violet-600',
+      metrics: { teams: '500+', projects: '2K+', rating: '4.7' },
+      featured: false,
+      liveUrl: 'https://project3.example.com',
+      githubUrl: 'https://github.com/username/project3',
+    },
+    {
+      id: 4,
+      title: 'Project 4',
+      tagline: 'Empowering Mobile Users',
+      description:
+        'Project 4 is a mobile app that tracks fitness routines and health metrics efficiently.',
+      image:
+        'https://images.unsplash.com/photo-1581091215369-5e7ed2e2f2aa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080',
+      tech: ['React Native', 'Firebase', 'Node.js', 'Stripe'],
+      color: 'from-pink-400 to-rose-600',
+      metrics: { users: '15K+', workouts: '100K+', rating: '4.6' },
+      featured: false,
+      liveUrl: 'https://project4.example.com',
+      githubUrl: 'https://github.com/username/project4',
+    },
+    {
+      id: 5,
+      title: 'Project 5',
+      tagline: 'Next-Level Performance',
+      description:
+        'Project 5 is a high-performance web platform for financial analytics and trading signals.',
+      image:
+        'https://images.unsplash.com/photo-1581091215369-5e7ed2e2f2aa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080',
+      tech: ['Next.js', 'TypeScript', 'PostgreSQL', 'WebSocket'],
+      color: 'from-yellow-400 to-orange-600',
+      metrics: { tracked: '$5M+', signals: '1K+', rating: '4.8' },
+      featured: false,
+      liveUrl: 'https://project5.example.com',
+      githubUrl: 'https://github.com/username/project5',
+    },
+    {
+      id: 6,
+      title: 'Project 6',
+      tagline: 'AI-Powered Insights',
+      description:
+        'Project 6 leverages AI to deliver intelligent course recommendations for students worldwide.',
+      image:
+        'https://images.unsplash.com/photo-1581091215369-5e7ed2e2f2aa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080',
+      tech: ['React', 'Django', 'PostgreSQL', 'Redis', 'ML APIs'],
+      color: 'from-teal-400 to-cyan-600',
+      metrics: { students: '50K+', courses: '200+', rating: '4.9' },
+      featured: false,
+      liveUrl: 'https://project6.example.com',
+      githubUrl: 'https://github.com/username/project6',
+    },
+  ];
 
   return (
     <section ref={sectionRef} className="py-20 bg-white relative overflow-hidden">
@@ -96,8 +173,8 @@ export default function ProjectsSection() {
               className="project-card group bg-white rounded-2xl shadow-lg overflow-hidden border-2 border-gray-100 hover:border-purple-300 hover:shadow-2xl transition-all duration-500"
               onMouseEnter={() => setHoveredProject(project.id)}
               onMouseLeave={() => setHoveredProject(null)}
+              onClick={() => setSelectedProject(project)}
             >
-
               <div className="project-card-inner flex flex-col h-full will-change-transform">
                 {project.featured && (
                   <div className="absolute top-4 right-4 z-20">
@@ -125,7 +202,6 @@ export default function ProjectsSection() {
                   >
                     {project.title}
                   </h3>
-
                   <p className="text-gray-600 mb-4 line-clamp-3">{project.description}</p>
 
                   <div className="flex flex-wrap gap-2 mb-4">
@@ -166,6 +242,7 @@ export default function ProjectsSection() {
           ))}
         </div>
 
+        {/* Call to action section */}
         <div className="text-center">
           <div className="bg-gradient-to-br from-purple-100 to-pink-100 rounded-2xl shadow-lg p-8 max-w-2xl mx-auto">
             <Users className="w-12 h-12 mx-auto mb-4 text-purple-600" />
@@ -182,6 +259,12 @@ export default function ProjectsSection() {
           </div>
         </div>
       </div>
+
+      {/* Project Dialog */}
+      <ProjectDialog
+        project={selectedProject}
+        onClose={() => setSelectedProject(null)}
+      />
     </section>
   );
 }
