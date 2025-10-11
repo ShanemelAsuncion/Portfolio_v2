@@ -5,7 +5,7 @@ export interface TimelineItem {
   year: string;
   title: string;
   description: string;
-  Icon: FC<React.SVGProps<SVGSVGElement>>; // <-- this tells TS it's a valid icon component
+  Icon: FC<React.SVGProps<SVGSVGElement>>;
   color: string;
   facts: string[];
 }
