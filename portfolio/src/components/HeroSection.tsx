@@ -8,7 +8,7 @@ export default function HeroSection() {
     const avatarRef = useRef<HTMLDivElement>(null);
     const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
     const [apiData, setApiData] = useState<string>('');
-    const profilePic = '/pic.JPG';
+    const profilePic = `${import.meta.env.BASE_URL}pic.JPG`;
     const socialLinks = [
       { icon: Github, url: 'https://github.com/ShanemelAsuncion', label: 'GitHub' },
       { icon: Linkedin, url: 'https://linkedin.com/in/shanemel', label: 'LinkedIn' },
@@ -31,7 +31,6 @@ export default function HeroSection() {
             stagger: 0.05,
           }
         );
-        
     
         // Bouncing animation for letters
         gsap.to(letters, {
@@ -194,7 +193,7 @@ export default function HeroSection() {
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button 
-                onClick={() => window.open("/resume.pdf", "_blank")}
+                onClick={() => window.open(`${import.meta.env.PUBLIC_URL}/resume.pdf`, "_blank")}
                 className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-8 py-4 rounded-full hover:scale-105 transform transition-all duration-300 shadow-lg hover:shadow-2xl">
                   fetch Resume() <Star className="inline w-5 h-5 ml-2" />
               </button>
