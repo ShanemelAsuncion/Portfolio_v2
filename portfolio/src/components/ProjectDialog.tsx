@@ -3,6 +3,7 @@ import { Dialog, DialogContent, DialogTitle, DialogClose, DialogDescription } fr
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@radix-ui/react-tabs';
 import { Badge } from '../assets/badge';
 import { Button } from '../assets/button';
+import type { Project } from '../types/interfaces';
 import {
   ExternalLink,
   Github,
@@ -16,34 +17,6 @@ import {
   Award,
   Code,
 } from 'lucide-react';
-
-export interface Project {
-  id: number;
-  title: string;
-  tagline: string;
-  description: string;
-  fullDescription?: string;
-  image: string;
-  images?: string[];
-  tech: string[];
-  color: string;
-  metrics: Record<string, string>;
-  featured?: boolean;
-  liveUrl?: string;
-  githubUrl?: string;
-  videoUrl?: string;
-  timeline?: string;
-  teamSize?: string;
-  role?: string;
-  features?: string[];
-  challenges?: string[];
-  outcomes?: string[];
-  testimonial?: {
-    text: string;
-    author: string;
-    icon?: React.ReactNode;
-  };
-}
 
 interface ProjectDialogProps {
   project: Project | null;
@@ -122,21 +95,30 @@ export default function ProjectDialog({ project, onClose }: ProjectDialogProps) 
 
             {/* --- Info Grid --- */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {[
-                { icon: Calendar, label: 'Timeline', value: project.timeline },
-                { icon: Users, label: 'Team', value: project.teamSize },
-                { icon: Briefcase, label: 'Role', value: project.role },
-                { icon: Star, label: 'Rating', value: project.metrics.rating || 'N/A' },
-              ].map(({ icon: Icon, label, value }, i) => (
-                <div key={i} className="bg-gray-50 rounded-lg p-4">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Icon className="w-4 h-4 text-gray-500" />
-                    <span className="text-xs text-gray-500">{label}</span>
-                  </div>
-                  <p className="text-sm">{value}</p>
-                </div>
-              ))}
+                {[
+                    { icon: Calendar, label: 'Timeline', value: project.timeline },
+                    { icon: Users, label: 'Team', value: project.teamSize },
+                    { icon: Briefcase, label: 'Role', value: project.role },
+                    {
+                    icon: Star,
+                    label: 'Rating',
+                    value:
+                        Object.entries(project.metrics || {}).find(
+                        ([k]) => k.toLowerCase() === 'rating'
+                        )?.[1] || '–',
+                    },
+                ].map(({ icon: Icon, label, value }, i) => (
+                    <div key={i} className="bg-gray-50 rounded-lg p-4">
+                    <div className="flex items-center gap-2 mb-2">
+                        <Icon className="w-4 h-4 text-gray-500" />
+                        <span className="text-xs text-gray-500">{label}</span>
+                    </div>
+                    <p className="text-sm">{value}</p>
+                    </div>
+                ))}
             </div>
+
+
 
             {/* --- Description --- */}
             <div>
@@ -164,7 +146,7 @@ export default function ProjectDialog({ project, onClose }: ProjectDialogProps) 
                 {project.liveUrl && project.liveUrl.toLowerCase() !== "n/a" && (
                     <Button
                     size="sm"
-                    className={`flex-1 !bg-gradient-to-r ${project.color} hover:opacity-90 text-white border-0`}
+                    className={`flex-1 bg-gradient-to-r ${project.color} hover:opacity-90 text-white border-0`}
                     onClick={() => window.open(project.liveUrl, "_blank")}
                     >
                     <ExternalLink className="w-4 h-4 mr-2" />
@@ -187,7 +169,7 @@ export default function ProjectDialog({ project, onClose }: ProjectDialogProps) 
                 {project.videoUrl && project.videoUrl.toLowerCase() !== "n/a" && (
                     <Button
                     size="sm"
-                    className={`flex-1 !bg-gradient-to-r ${project.color} hover:opacity-90 text-white border-0`}
+                    className={`flex-1 bg-gradient-to-r ${project.color} hover:opacity-90 text-white border-0`}
                     onClick={() => window.open(project.videoUrl, "_blank")}
                     >
                     🎥 Video Demo

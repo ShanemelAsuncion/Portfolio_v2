@@ -5,36 +5,11 @@ import { Badge } from '../assets/badge';
 import { Button } from '../assets/button';
 import { ExternalLink, Github, Star, Users } from 'lucide-react';
 import ProjectDialog from './ProjectDialog';
+import type { Project } from '../types/interfaces';
+import { projects } from '../data/projects';
 
 gsap.registerPlugin(ScrollTrigger);
 
-interface Project {
-  id: number;
-  title: string;
-  tagline: string;
-  description: string;
-  fullDescription?: string; 
-  image: string;
-  images?: string[]; 
-  tech: string[];
-  color: string;
-  metrics: Record<string, string>;
-  featured?: boolean;
-  liveUrl?: string;
-  githubUrl?: string;
-  videoUrl?: string;
-  timeline?: string;  
-  teamSize?: string;  
-  role?: string;      
-  features?: string[]; 
-  challenges?: string[]; 
-  outcomes?: string[]; 
-  testimonial?: {
-    text: string;
-    author: string;
-    icon?: React.ReactNode;
-  };
-}
 
 export default function ProjectsSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -70,105 +45,6 @@ export default function ProjectsSection() {
       stagger: 0.15,
     });
   }, []);
-
-  const projects: Project[] = [
-    {
-        id: 1,
-        title: "Website Builder",
-        tagline: "No-code website builder with dynamic content and admin dashboard",
-        description: "Modern marketing site + admin dashboard for real-world constraints: zero-redeploy content updates, resilient API, and clean local development.",
-        fullDescription: "Features an admin dashboard to manage Hero, Services, Portfolio, Testimonials, and Contact. Supports seasonal modes (summer/winter), runtime-configurable API, uploads to Supabase Storage, and secure backend with hashed passwords.",
-        image: "/1.png",
-        images: ["/1.png", "/2.png", "/5.png", "/3.png","/4.png"],
-        tech: ["React", "Vite", "TailwindCSS", "Framer Motion", "Radix UI", "Node.js", "Express", "Supabase", "JWT", "bcrypt"],
-        color: "bg-purple-500",
-        metrics: {
-          "Redeploy needed": "0",
-          "Uploads": "100+",
-          "Rating": "4.3",
-        },
-        featured: true,
-        liveUrl: "https://jaysbladeandsnowservicesinc.netlify.app",
-        githubUrl: "https://github.com/ShanemelAsuncion/Website_builder",
-        timeline: "2025",
-        teamSize: "1",
-        role: "Full-stack Developer",
-        features: [
-          "Admin dashboard for content management",
-          "Zero-redeploy runtime config",
-          "Uploads to cloud storage",
-          "Resilient frontend with Axios retry"
-        ],
-        challenges: [
-          "Implementing runtime configuration without redeploy",
-          "Secure handling of uploads and authentication"
-        ],
-        outcomes: [
-          "Fully functional no-code website builder",
-          "Dynamic content editing for real-world business"
-        ]
-    },
-    {
-        id: 2,
-        title: "AI Chatbot",
-        tagline: "Chatbot with traditional and RAG-enhanced capabilities",
-        description: "Streamlit-based AI chatbot that supports real-time chat, document uploads, and context-aware responses using Retrieval Augmented Generation (RAG).",
-        fullDescription: "Provides traditional GPT-based chat with chat history management and customizable prompts. RAG-enhanced chat allows PDF uploads, real-time document indexing, and context-aware AI responses. Includes source tracking and supports multiple documents for informed answers.",
-        image: "/13.png",
-        images: ["/11.png", "/12.png", "/13.png"],
-        tech: ["Python", "Streamlit", "OpenAI API", "Pinecone", "LangChain", "PyPDF"],
-        color: "bg-cyan-500",
-        metrics: {
-            "Documents processed": "100+",
-            "Accuracy": "8%",
-            "Rating": "4.1",
-        },
-        featured: true,
-        liveUrl: "https://ai-chatbot-bfgsesbwyzsoxgvshjayrs.streamlit.app/",
-        githubUrl: "https://github.com/ShanemelAsuncion/ai-chatbot",
-        timeline: "2025",
-        teamSize: "1",
-        role: "Full-stack Developer",
-        features: [
-            "Real-time GPT chat with customizable prompts",
-            "RAG-enhanced chat with PDF upload and processing",
-            "Context-aware responses with source tracking",
-            "Supports multiple document uploads"
-        ],
-        challenges: [
-            "Integrating RAG workflow with real-time chat",
-            "Ensuring efficient vector search and retrieval",
-            "Handling multiple PDF documents securely"
-        ],
-        outcomes: [
-            "Fully functional AI chatbot with RAG capabilities",
-            "Context-aware responses and document-informed answers"
-        ]
-    },
-    {
-      id: 3,
-      title: "uniONE Mobile App",
-      tagline: "MVP mobile application for data management",
-      description: "Designed and developed a mobile MVP using React Native, Expo, and Django REST APIs.",
-      fullDescription: "Implemented authentication, authorization, and secure backend communications using PostgreSQL for uniONE project.",
-      image: "/10.png",
-      images: ["/6.png", "/7.png", "/8.png", "/9.png", "/10.png"],
-      tech: ["React Native", "Expo", "Django", "PostgreSQL"],
-      color: "bg-orange-500",
-      metrics: { },
-      featured: false,
-      liveUrl: "https://unione.cc/",
-      githubUrl: "n/a",
-      videoUrl: "https://www.youtube.com/watch?v=GjZJ43cEKqQ&t=301s",
-      timeline: "JAN 2023 - APR 2023",
-      teamSize: "7",
-      role: "Front-end Developer",
-      features: ["Mobile MVP", "Authentication & authorization", "Secure backend integration"],
-      challenges: ["API integration", "Mobile optimization"],
-      outcomes: ["Delivered a functional mobile MVP"]
-    },
-      
-  ];
 
   return (
     <section ref={sectionRef} className="py-20 bg-white relative overflow-hidden">
@@ -214,11 +90,13 @@ export default function ProjectsSection() {
                     <div
                         className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-20 group-hover:opacity-50 transition-opacity duration-500`}
                     ></div>
-                    <div className="absolute bottom-4 left-4 right-4">
-                        <p className="text-white text-sm backdrop-blur-sm bg-white/20 px-3 py-1 rounded-full inline-block">
-                        {project.tagline}
+                   <div className="absolute bottom-4 left-4 right-4 flex justify-start">
+                        <p className="inline-block bg-white/70 dark:bg-black/50 backdrop-blur-md text-gray-900 dark:text-gray-100 text-sm font-normal px-3 py-1 rounded-full shadow-sm">
+                            {project.tagline}
                         </p>
                     </div>
+
+
                 </div>
 
 
@@ -238,22 +116,26 @@ export default function ProjectsSection() {
                     ))}
                   </div>
 
-                  <div className="grid grid-cols-3 gap-2 mb-4 p-3 bg-gray-50 rounded-lg">
-                    {Object.entries(project.metrics)
-                      .slice(0, 3)
-                      .map(([key, value]) => (
-                        <div key={key} className="text-center">
-                          <div className="text-sm text-gray-800">{value}</div>
-                          <div className="text-xs text-gray-500 capitalize">{key}</div>
-                        </div>
-                      ))}
-                  </div>
+                  {project.metrics && Object.values(project.metrics).some(v => v) && (
+                    <div className="grid grid-cols-3 gap-2 mb-4 p-3 bg-gray-50 rounded-lg">
+                        {Object.entries(project.metrics)
+                        .filter(([_, value]) => value)
+                        .slice(0, 3) 
+                        .map(([key, value]) => (
+                            <div key={key} className="text-center">
+                            <div className="text-sm text-gray-800">{value}</div>
+                            <div className="text-xs text-gray-500 capitalize">{key}</div>
+                            </div>
+                        ))}
+                    </div>
+                    )}
+
 
                   <div className="flex gap-3 mt-auto">
                     {project.liveUrl && project.liveUrl.toLowerCase() !== "n/a" && (
                         <Button
                         size="sm"
-                        className={`flex-1 ${project.color} hover:opacity-90 text-white border-0`}
+                        className={`flex-1 bg-gradient-to-r ${project.color} hover:opacity-90 text-white border-0`}
                         onClick={() => window.open(project.liveUrl, "_blank")}
                         >
                         <ExternalLink className="w-4 h-4 mr-2" />
@@ -275,7 +157,7 @@ export default function ProjectsSection() {
                     {project.videoUrl && project.videoUrl.toLowerCase() !== "n/a" && (
                         <Button
                         size="sm"
-                        className={`flex-1 ${project.color} hover:opacity-90 text-white border-0`}
+                        className={`flex-1 bg-gradient-to-r ${project.color} hover:opacity-90 text-white border-0`}
                         onClick={() => window.open(project.videoUrl, "_blank")}
                         >
                         🎥 Video Demo
