@@ -193,7 +193,7 @@ export default function HeroSection() {
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button 
-                onClick={() => window.open(`${import.meta.env.PUBLIC_URL}/resume.pdf`, "_blank")}
+                onClick={() => window.open(`${import.meta.env.BASE_URL}/resume.pdf`, "_blank")}
                 className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-8 py-4 rounded-full hover:scale-105 transform transition-all duration-300 shadow-lg hover:shadow-2xl">
                   fetch Resume() <Star className="inline w-5 h-5 ml-2" />
               </button>
