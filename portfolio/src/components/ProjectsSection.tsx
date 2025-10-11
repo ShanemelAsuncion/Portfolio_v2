@@ -13,13 +13,27 @@ interface Project {
   title: string;
   tagline: string;
   description: string;
+  fullDescription?: string; 
   image: string;
+  images?: string[]; 
   tech: string[];
   color: string;
   metrics: Record<string, string>;
   featured?: boolean;
   liveUrl?: string;
   githubUrl?: string;
+  videoUrl?: string;
+  timeline?: string;  
+  teamSize?: string;  
+  role?: string;      
+  features?: string[]; 
+  challenges?: string[]; 
+  outcomes?: string[]; 
+  testimonial?: {
+    text: string;
+    author: string;
+    icon?: React.ReactNode;
+  };
 }
 
 export default function ProjectsSection() {
@@ -59,95 +73,101 @@ export default function ProjectsSection() {
 
   const projects: Project[] = [
     {
-      id: 1,
-      title: 'Project 1',
-      tagline: 'Innovating the Future',
-      description:
-        'Project 1 is a cutting-edge web application that streamlines workflow for developers and teams.',
-      image:
-        'https://images.unsplash.com/photo-1581091215369-5e7ed2e2f2aa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080',
-      tech: ['React', 'Node.js', 'PostgreSQL', 'GraphQL', 'Docker'],
-      color: 'from-green-400 to-emerald-600',
-      metrics: { users: '10K+', uptime: '99.9%', rating: '4.8' },
-      featured: true,
-      liveUrl: 'https://project1.example.com',
-      githubUrl: 'https://github.com/username/project1',
+        id: 1,
+        title: "Website Builder",
+        tagline: "No-code website builder with dynamic content and admin dashboard",
+        description: "Modern marketing site + admin dashboard for real-world constraints: zero-redeploy content updates, resilient API, and clean local development.",
+        fullDescription: "Features an admin dashboard to manage Hero, Services, Portfolio, Testimonials, and Contact. Supports seasonal modes (summer/winter), runtime-configurable API, uploads to Supabase Storage, and secure backend with hashed passwords.",
+        image: "/1.png",
+        images: ["/1.png", "/2.png", "/5.png", "/3.png","/4.png"],
+        tech: ["React", "Vite", "TailwindCSS", "Framer Motion", "Radix UI", "Node.js", "Express", "Supabase", "JWT", "bcrypt"],
+        color: "bg-purple-500",
+        metrics: {
+          "Redeploy needed": "0",
+          "Uploads": "100+",
+          "Rating": "4.3",
+        },
+        featured: true,
+        liveUrl: "https://jaysbladeandsnowservicesinc.netlify.app",
+        githubUrl: "https://github.com/ShanemelAsuncion/Website_builder",
+        timeline: "2025",
+        teamSize: "1",
+        role: "Full-stack Developer",
+        features: [
+          "Admin dashboard for content management",
+          "Zero-redeploy runtime config",
+          "Uploads to cloud storage",
+          "Resilient frontend with Axios retry"
+        ],
+        challenges: [
+          "Implementing runtime configuration without redeploy",
+          "Secure handling of uploads and authentication"
+        ],
+        outcomes: [
+          "Fully functional no-code website builder",
+          "Dynamic content editing for real-world business"
+        ]
     },
     {
-      id: 2,
-      title: 'Project 2',
-      tagline: 'Connecting the World',
-      description:
-        'Project 2 is a real-time messaging platform for global teams to collaborate seamlessly.',
-      image:
-        'https://images.unsplash.com/photo-1581091215369-5e7ed2e2f2aa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080',
-      tech: ['Angular', 'Python', 'MongoDB', 'WebSocket', 'Redis'],
-      color: 'from-blue-400 to-indigo-600',
-      metrics: { users: '5K+', accuracy: '95%', rating: '4.9' },
-      featured: true,
-      liveUrl: 'https://project2.example.com',
-      githubUrl: 'https://github.com/username/project2',
+        id: 2,
+        title: "AI Chatbot",
+        tagline: "Chatbot with traditional and RAG-enhanced capabilities",
+        description: "Streamlit-based AI chatbot that supports real-time chat, document uploads, and context-aware responses using Retrieval Augmented Generation (RAG).",
+        fullDescription: "Provides traditional GPT-based chat with chat history management and customizable prompts. RAG-enhanced chat allows PDF uploads, real-time document indexing, and context-aware AI responses. Includes source tracking and supports multiple documents for informed answers.",
+        image: "/13.png",
+        images: ["/11.png", "/12.png", "/13.png"],
+        tech: ["Python", "Streamlit", "OpenAI API", "Pinecone", "LangChain", "PyPDF"],
+        color: "bg-cyan-500",
+        metrics: {
+            "Documents processed": "100+",
+            "Accuracy": "8%",
+            "Rating": "4.1",
+        },
+        featured: true,
+        liveUrl: "https://ai-chatbot-bfgsesbwyzsoxgvshjayrs.streamlit.app/",
+        githubUrl: "https://github.com/ShanemelAsuncion/ai-chatbot",
+        timeline: "2025",
+        teamSize: "1",
+        role: "Full-stack Developer",
+        features: [
+            "Real-time GPT chat with customizable prompts",
+            "RAG-enhanced chat with PDF upload and processing",
+            "Context-aware responses with source tracking",
+            "Supports multiple document uploads"
+        ],
+        challenges: [
+            "Integrating RAG workflow with real-time chat",
+            "Ensuring efficient vector search and retrieval",
+            "Handling multiple PDF documents securely"
+        ],
+        outcomes: [
+            "Fully functional AI chatbot with RAG capabilities",
+            "Context-aware responses and document-informed answers"
+        ]
     },
     {
       id: 3,
-      title: 'Project 3',
-      tagline: 'Simplifying Complexity',
-      description:
-        'Project 3 is an analytics dashboard that visualizes complex data in simple charts.',
-      image:
-        'https://images.unsplash.com/photo-1581091215369-5e7ed2e2f2aa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080',
-      tech: ['Vue.js', 'Express.js', 'MySQL', 'JWT', 'AWS'],
-      color: 'from-purple-400 to-violet-600',
-      metrics: { teams: '500+', projects: '2K+', rating: '4.7' },
+      title: "uniONE Mobile App",
+      tagline: "MVP mobile application for data management",
+      description: "Designed and developed a mobile MVP using React Native, Expo, and Django REST APIs.",
+      fullDescription: "Implemented authentication, authorization, and secure backend communications using PostgreSQL for uniONE project.",
+      image: "/10.png",
+      images: ["/6.png", "/7.png", "/8.png", "/9.png", "/10.png"],
+      tech: ["React Native", "Expo", "Django", "PostgreSQL"],
+      color: "bg-orange-500",
+      metrics: { },
       featured: false,
-      liveUrl: 'https://project3.example.com',
-      githubUrl: 'https://github.com/username/project3',
+      liveUrl: "https://unione.cc/",
+      githubUrl: "n/a",
+      videoUrl: "https://www.youtube.com/watch?v=GjZJ43cEKqQ&t=301s",
+      timeline: "JAN 2023 - APR 2023",
+      teamSize: "7",
+      role: "Front-end Developer",
+      features: ["Mobile MVP", "Authentication & authorization", "Secure backend integration"],
+      challenges: ["API integration", "Mobile optimization"],
+      outcomes: ["Delivered a functional mobile MVP"]
     },
-    {
-      id: 4,
-      title: 'Project 4',
-      tagline: 'Empowering Mobile Users',
-      description:
-        'Project 4 is a mobile app that tracks fitness routines and health metrics efficiently.',
-      image:
-        'https://images.unsplash.com/photo-1581091215369-5e7ed2e2f2aa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080',
-      tech: ['React Native', 'Firebase', 'Node.js', 'Stripe'],
-      color: 'from-pink-400 to-rose-600',
-      metrics: { users: '15K+', workouts: '100K+', rating: '4.6' },
-      featured: false,
-      liveUrl: 'https://project4.example.com',
-      githubUrl: 'https://github.com/username/project4',
-    },
-    {
-      id: 5,
-      title: 'Project 5',
-      tagline: 'Next-Level Performance',
-      description:
-        'Project 5 is a high-performance web platform for financial analytics and trading signals.',
-      image:
-        'https://images.unsplash.com/photo-1581091215369-5e7ed2e2f2aa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080',
-      tech: ['Next.js', 'TypeScript', 'PostgreSQL', 'WebSocket'],
-      color: 'from-yellow-400 to-orange-600',
-      metrics: { tracked: '$5M+', signals: '1K+', rating: '4.8' },
-      featured: false,
-      liveUrl: 'https://project5.example.com',
-      githubUrl: 'https://github.com/username/project5',
-    },
-    {
-      id: 6,
-      title: 'Project 6',
-      tagline: 'AI-Powered Insights',
-      description:
-        'Project 6 leverages AI to deliver intelligent course recommendations for students worldwide.',
-      image:
-        'https://images.unsplash.com/photo-1581091215369-5e7ed2e2f2aa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080',
-      tech: ['React', 'Django', 'PostgreSQL', 'Redis', 'ML APIs'],
-      color: 'from-teal-400 to-cyan-600',
-      metrics: { students: '50K+', courses: '200+', rating: '4.9' },
-      featured: false,
-      liveUrl: 'https://project6.example.com',
-      githubUrl: 'https://github.com/username/project6',
-    },
+      
   ];
 
   return (
@@ -163,7 +183,7 @@ export default function ProjectsSection() {
           Featured Projects
         </h2>
         <p className="text-xl text-gray-600 text-center mb-16 animate-in">
-          Building the future, one line of code at a time 💻
+          Building the future, one line of code at a time.
         </p>
 
         <div className="projects-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16 auto-rows-fr">
@@ -186,15 +206,21 @@ export default function ProjectsSection() {
                 )}
 
                 <div className="relative h-48 overflow-hidden">
-                  <div
-                    className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-60 group-hover:opacity-80 transition-opacity duration-500`}
-                  ></div>
-                  <div className="absolute bottom-4 left-4 right-4">
-                    <p className="text-white text-sm backdrop-blur-sm bg-white/20 px-3 py-1 rounded-full inline-block">
-                      {project.tagline}
-                    </p>
-                  </div>
+                    <img
+                        src={project.image}
+                        alt={project.title}
+                        className="w-full h-full object-cover"
+                    />
+                    <div
+                        className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-20 group-hover:opacity-50 transition-opacity duration-500`}
+                    ></div>
+                    <div className="absolute bottom-4 left-4 right-4">
+                        <p className="text-white text-sm backdrop-blur-sm bg-white/20 px-3 py-1 rounded-full inline-block">
+                        {project.tagline}
+                        </p>
+                    </div>
                 </div>
+
 
                 <div className="p-6 flex flex-col flex-1">
                   <h3
@@ -224,25 +250,45 @@ export default function ProjectsSection() {
                   </div>
 
                   <div className="flex gap-3 mt-auto">
-                    <Button
-                      size="sm"
-                      className={`flex-1 bg-gradient-to-r ${project.color} hover:opacity-90 text-white border-0`}
-                    >
-                      <ExternalLink className="w-4 h-4 mr-2" />
-                      Live Demo
-                    </Button>
-                    <Button size="sm" variant="outline" className="flex-1">
-                      <Github className="w-4 h-4 mr-2" />
-                      Code
-                    </Button>
-                  </div>
+                    {project.liveUrl && project.liveUrl.toLowerCase() !== "n/a" && (
+                        <Button
+                        size="sm"
+                        className={`flex-1 ${project.color} hover:opacity-90 text-white border-0`}
+                        onClick={() => window.open(project.liveUrl, "_blank")}
+                        >
+                        <ExternalLink className="w-4 h-4 mr-2" />
+                        Live Demo
+                        </Button>
+                    )}
+
+                    {project.githubUrl && project.githubUrl.toLowerCase() !== "n/a" && (
+                        <Button
+                        variant="outline"
+                        className="flex-1"
+                        onClick={() => window.open(project.githubUrl, "_blank")}
+                        >
+                        <Github className="w-4 h-4 mr-2" />
+                        Code
+                        </Button>
+                    )}
+
+                    {project.videoUrl && project.videoUrl.toLowerCase() !== "n/a" && (
+                        <Button
+                        size="sm"
+                        className={`flex-1 ${project.color} hover:opacity-90 text-white border-0`}
+                        onClick={() => window.open(project.videoUrl, "_blank")}
+                        >
+                        🎥 Video Demo
+                        </Button>
+                    )}
+                    </div>
+
                 </div>
               </div>
             </div>
           ))}
         </div>
 
-        {/* Call to action section */}
         <div className="text-center">
           <div className="bg-gradient-to-br from-purple-100 to-pink-100 rounded-2xl shadow-lg p-8 max-w-2xl mx-auto">
             <Users className="w-12 h-12 mx-auto mb-4 text-purple-600" />
@@ -260,7 +306,6 @@ export default function ProjectsSection() {
         </div>
       </div>
 
-      {/* Project Dialog */}
       <ProjectDialog
         project={selectedProject}
         onClose={() => setSelectedProject(null)}

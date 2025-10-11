@@ -11,9 +11,10 @@ export default function AboutSection() {
   const timelineRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!timelineRef.current) return;
-
-    // Timeline animation
+    gsap.registerPlugin(ScrollTrigger);
+  
+    if (!sectionRef.current || !timelineRef.current) return;
+  
     const timeline = gsap.timeline({
       scrollTrigger: {
         trigger: timelineRef.current,
@@ -22,53 +23,46 @@ export default function AboutSection() {
         scrub: 1,
       },
     });
-
-    const items = timelineRef.current.querySelectorAll<HTMLDivElement>('.timeline-item');
-    timeline.fromTo(
-      items,
-      { x: -100, opacity: 0 },
-      { x: 0, opacity: 1, stagger: 0.3, duration: 1 }
-    );
-
-    const line = timelineRef.current.querySelector<HTMLDivElement>('.timeline-line');
-    if (line) {
-      timeline.fromTo(line, { scaleY: 0 }, { scaleY: 1, duration: 2 }, 0);
-    }
-
-    // Flow diagram animation
-    const flowItems = sectionRef.current?.querySelectorAll<HTMLDivElement>('.flow-item') || [];
-    gsap.fromTo(
-      flowItems,
-      { scale: 0, rotation: 180 },
-      {
-        scale: 1,
-        rotation: 0,
-        duration: 1,
-        ease: 'back.out(1.7)',
-        stagger: 0.2,
-        scrollTrigger: {
-          trigger: sectionRef.current?.querySelector('.tech-flow'),
-          start: 'top 80%',
-        },
+  
+    const items = timelineRef.current.querySelectorAll('.timeline-item');
+      if (items.length) {
+        timeline.fromTo(items, { x: -100, opacity: 0 }, { x: 0, opacity: 1, stagger: 0.3, duration: 1 });
       }
-    );
-
-    // Connecting arrows animation
-    const arrows = sectionRef.current?.querySelectorAll<HTMLDivElement>('.flow-arrow') || [];
-    gsap.fromTo(
-      arrows,
-      { scaleX: 0 },
-      {
-        scaleX: 1,
-        duration: 0.8,
-        stagger: 0.3,
-        scrollTrigger: {
-          trigger: sectionRef.current?.querySelector('.tech-flow'),
-          start: 'top 70%',
-        },
+    
+    const line = timelineRef.current.querySelector('.timeline-line');
+      if (line) {
+        timeline.fromTo(line, { scaleY: 0 }, { scaleY: 1, duration: 2 }, 0);
       }
-    );
-  }, []);
+  
+    const flowItems = sectionRef.current.querySelectorAll('.flow-item');
+      if (flowItems.length) {
+        gsap.fromTo(flowItems, { scale: 0, rotation: 180 }, {
+          scale: 1,
+          rotation: 0,
+          duration: 1,
+          ease: 'back.out(1.7)',
+          stagger: 0.2,
+          scrollTrigger: {
+            trigger: sectionRef.current.querySelector('.tech-flow'),
+            start: 'top 80%',
+          },
+        });
+      }
+  
+    const arrows = sectionRef.current.querySelectorAll('.flow-arrow');
+      if (arrows.length) {
+        gsap.fromTo(arrows, { scaleX: 0 }, {
+          scaleX: 1,
+          duration: 0.8,
+          stagger: 0.3,
+          scrollTrigger: {
+            trigger: sectionRef.current.querySelector('.tech-flow'),
+            start: 'top 70%',
+          },
+        });
+      }
+    }, []);
+  
 
   const timelineData = [
     {
