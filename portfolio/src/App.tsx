@@ -18,8 +18,8 @@ export default function App() {
     <HeroSection key="hero" />,
     <AboutSection key="about" />,
     <ProjectsSection key="projects" />,
-    <SkillsSection key="skills" />,
     <OrganizationsSection key="orgs" />,
+    <SkillsSection key="skills" />,
     <ContactSection key="contact" />,
   ];
 
@@ -85,8 +85,8 @@ export default function App() {
               index === 0 ? "hero" :
               index === 1 ? "about" :
               index === 2 ? "projects" :
-              index === 3 ? "skills" :
-              index === 4 ? "organizations" :
+              index === 3 ? "organizations" :
+              index === 4 ? "skills" :
               index === 5 ? "contact" : undefined
             }
             className="min-h-screen flex flex-col justify-center"

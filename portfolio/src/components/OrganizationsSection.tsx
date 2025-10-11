@@ -4,7 +4,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Badge } from '../assets/badge';
 import { Award, Users, Sparkles } from 'lucide-react';
 import organizations from '../data/organizations';
-import FloatingCodeSnippets from '../assets/floatingcodesnippets';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -39,8 +38,7 @@ export default function OrganizationsSection() {
   
 
   return (
-    <section ref={sectionRef} className="py-20 bg-white relative overflow-hidden">
-      <FloatingCodeSnippets />
+    <section ref={sectionRef} className="py-20  relative overflow-hidden">
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         {/* Header */}
