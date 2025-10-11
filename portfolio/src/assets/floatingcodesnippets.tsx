@@ -61,7 +61,7 @@ const FloatingCodeSnippets = () => {
         {codeSnippets.map((snippet, index) => {
         // Random scatter
         const x = (Math.random() - 0.5) * 10;  // spread horizontally
-        const y = (Math.random() - 0.5) * 20;   // spread vertically
+        const y = (Math.random() - 0.5) * 20;// spread vertically
         const z = (Math.random() - 0.5) * 5;  // spread depth-wise
 
         return (
