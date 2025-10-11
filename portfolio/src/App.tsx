@@ -48,31 +48,19 @@ export default function App() {
       stagger: 0.3,
     });
 
-    // Full-page scroll snapping with AboutSection excluded
-    const sectionEls = gsap.utils.toArray<HTMLElement>(
-      "section[data-section-index]"
-    );
-
+    const sectionEls = gsap.utils.toArray<HTMLElement>("section[data-section-index]");
     sectionEls.forEach((section, i) => {
       ScrollTrigger.create({
         trigger: section,
-        start: "top top",
-        end: "bottom top",
+        start: "top center",
+        end: "bottom center",
         onEnter: () => setActiveSection(i),
         onEnterBack: () => setActiveSection(i),
-        // Disable snapping for AboutSection (index 1)
-        snap:
-          i === 1
-            ? undefined
-            : {
-                snapTo: 1,
-                duration: { min: 0.5, max: 1 },
-                ease: "power1.inOut",
-              },
       });
     });
+  
+    return () => ScrollTrigger.getAll().forEach((t) => t.kill());
   }, []);
-
   return (
     <div
       ref={appRef}
@@ -93,12 +81,21 @@ export default function App() {
           <section
             key={index}
             data-section-index={index}
+            id={
+              index === 0 ? "hero" :
+              index === 1 ? "about" :
+              index === 2 ? "projects" :
+              index === 3 ? "skills" :
+              index === 4 ? "organizations" :
+              index === 5 ? "contact" : undefined
+            }
             className="min-h-screen flex flex-col justify-center"
           >
             {Section}
           </section>
         ))}
       </div>
+
 
       <div className="fixed right-8 top-1/2 transform -translate-y-1/2 z-20">
         <div className="flex flex-col space-y-2">

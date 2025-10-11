@@ -181,7 +181,16 @@ export default function ProjectsSection() {
               Have an idea for a project? I'd love to hear about it and help bring your vision to
               life.
             </p>
-            <Button className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white shadow-lg">
+            <Button 
+              className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white shadow-lg"
+              onClick={() => {
+                const contactSection = document.querySelector("#contact");
+                if (contactSection) {
+                  contactSection.scrollIntoView({ behavior: "smooth" });
+                } else {
+                  console.warn("Contact section not found");
+                }
+            }}>
               Start a Project
             </Button>
           </div>

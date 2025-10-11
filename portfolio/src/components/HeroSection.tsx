@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
-import { Code, Heart, Zap, Star, Coffee } from 'lucide-react';
+import { Code, Heart, Zap, Star, Coffee, Github, Linkedin, MessageSquare, Mail } from 'lucide-react';
 
 
 export default function HeroSection() {
@@ -9,6 +9,12 @@ export default function HeroSection() {
     const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
     const [apiData, setApiData] = useState<string>('');
     const profilePic = '/pic.JPG';
+    const socialLinks = [
+      { icon: Github, url: 'https://github.com/ShanemelAsuncion', label: 'GitHub' },
+      { icon: Linkedin, url: 'https://linkedin.com/in/shanemel', label: 'LinkedIn' },
+      { icon: MessageSquare, url: 'https://huggingface.co/shanemel', label: 'Hugging Face' },
+      { icon: Mail, url: 'mailto:shanemelasuncion@gmail.com', label: 'Email'},
+    ];
 
 
     useEffect(() => {
@@ -86,17 +92,14 @@ export default function HeroSection() {
     
       return (
         <section ref={heroRef} className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-purple-100 via-pink-100 to-blue-100">
-          {/* Hero background */}
           <div className="absolute inset-0 opacity-20 bg-gradient-to-r from-purple-500 to-pink-500"></div>
-          
-          {/* Decorative shapes */}
+
+        {/* Decorative stuff */}
           <div className="absolute inset-0 pointer-events-none opacity-30">
             <div className="absolute top-20 left-10 w-40 h-40 bg-purple-300 rounded-full blur-3xl"></div>
             <div className="absolute bottom-20 right-10 w-60 h-60 bg-pink-300 rounded-full blur-3xl"></div>
             <div className="absolute top-1/2 left-1/3 w-32 h-32 bg-blue-300 rounded-full blur-3xl"></div>
           </div>
-    
-          {/* Floating code snippets */}
           <div className="absolute inset-0 pointer-events-none">
             <div className="code-snippet absolute top-20 left-10 bg-purple-100 rounded-lg p-3 shadow-lg transform rotate-12">
               <code className="text-purple-800">const developer = "awesome";</code>
@@ -157,6 +160,22 @@ export default function HeroSection() {
             <p className="text-2xl text-gray-600 mb-8 animate-in">
               Creating delightful digital experiences with passion & precision ✨
             </p>
+
+            {/* Social links */}
+            <div className="flex justify-center gap-4 mb-8 animate-in">
+              {socialLinks.map((social) => (
+                <a
+                  key={social.label}
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-full !bg-black border-2 border-black flex items-center justify-center !ext-white hover:bg-white hover:text-black transition-all duration-300 hover:scale-110 shadow-md hover:shadow-lg"
+                  aria-label={social.label}
+                >
+                  <social.icon className="w-5 h-5" />
+                </a>
+              ))}
+            </div>
     
             {/* Live API demonstration */}
             <div className="bg-gray-900 text-green-400 rounded-lg p-4 max-w-md mx-auto mb-8 animate-in">
@@ -173,12 +192,23 @@ export default function HeroSection() {
             </div>
     
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center animate-in">
-              <button className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-8 py-4 rounded-full hover:scale-105 transform transition-all duration-300 shadow-lg hover:shadow-2xl">
-                View My Work <Star className="inline w-5 h-5 ml-2" />
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <button 
+                onClick={() => window.open("/resume.pdf", "_blank")}
+                className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-8 py-4 rounded-full hover:scale-105 transform transition-all duration-300 shadow-lg hover:shadow-2xl">
+                  fetch Resume() <Star className="inline w-5 h-5 ml-2" />
               </button>
-              <button className="bg-white text-gray-800 px-8 py-4 rounded-full hover:scale-105 transform transition-all duration-300 shadow-lg hover:shadow-2xl border-2 border-gray-200">
-                Let's Chat <Coffee className="inline w-5 h-5 ml-2" />
+              <button 
+                onClick={() => {
+                  const contactSection = document.querySelector("#contact");
+                  if (contactSection) {
+                    contactSection.scrollIntoView({ behavior: "smooth" });
+                  } else {
+                    console.warn("Contact section not found");
+                  }
+                }}
+                className="bg-white text-gray-800 px-8 py-4 rounded-full hover:scale-105 transform transition-all duration-300 shadow-lg hover:shadow-2xl border-2 border-gray-200">
+                  hire --dev <Coffee className="inline w-5 h-5 ml-2" />
               </button>
             </div>
           </div>
